@@ -1,19 +1,17 @@
 var table = document.querySelector("table.table");
-var c = 1;
 document.querySelector("button.add-col").onclick = function () {
   let rows = table.tBodies[0].rows;
   let i;
   for (i = 0, l = rows.length - 1; i < l; i++) setCol(rows[i]);
   let btn = document.createElement("button");
   btn.setAttribute("class", "del_col");
-  btn.setAttribute("value", c);
+  btn.setAttribute("value", rows[0].children.length - 2);
   btn.setAttribute("onclick", "d2(this.value)");
   btn.innerText = "del";
   rows[i].children[rows[i].children.length - 1].insertAdjacentElement(
     "afterend",
     btn
   );
-  ++c;
 };
 document.querySelector("button.add-row").onclick = function () {
   let row = document.createElement("tr");
@@ -59,6 +57,6 @@ function d2(id) {
   for (let i = ++id; i < num; ++i) {
     rows[rows.length - 1].children[i].setAttribute("value", i - 1);
   }
-
-  alert(id);
+  for (let i = 0; i < rows.length; ++i)
+    rows[i].children[id - 1].parentNode.removeChild(rows[i].children[id - 1]);
 }
